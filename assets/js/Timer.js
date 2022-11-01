@@ -9,7 +9,7 @@ export class Timer {
     requestAnimationFrame(this.loop.bind(this));
   }
 
-  loop(currentTime) {
+loop(currentTime) {
     if (this.paused) return;
     if (this.lastTime) {
       this.accumulatedTime += currentTime - this.lastTime;
@@ -17,7 +17,7 @@ export class Timer {
         this.accumulatedTime = 1000;
       }
       while (this.accumulatedTime > this.deltaTime) {
-        this.update(this.deltaTime);
+this.update(this.deltaTime);
         this.accumulatedTime -= this.deltaTime;
       }
     }
@@ -28,7 +28,7 @@ export class Timer {
     this.lastTime = null;
     this.paused = true;
   }
-  update() {}
+
 }
 
 export const timer = new Timer(1000 / 60);

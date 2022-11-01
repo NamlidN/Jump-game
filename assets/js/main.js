@@ -8,22 +8,54 @@
 // console.log(r.overlapsWith(s))
 
 import { Box } from "./objects/Box.js";
+import { Player } from './objects/Player.js';
 import { clearCanvas } from "./canvas.js";
 import { timer } from "./Timer.js";
-const b = new Box({
-  pos: [100, 100],
-  size: [100, 100],
+import { Rectangle } from "./objects/Rectangle.js";
+
+
+const objects = [
+new Player({
+  pos: [100,500],
+  size: [50,50],
   color: "red",
-});
+}),
+new Rectangle({
+  pos: [400,900],
+  size: [100,10],
+  color: 'blue',
+}),
+new Rectangle({
+  pos: [200,600],
+  size: [10,100],
+  color: 'blue',
+}),
+new Box({
+  pos: [400,800],
+  size: [100,100],
+  color: 'orange',
+}), 
+new Rectangle({
+  pos: [300,750],
+  size: [200,10],
+  color: 'blue',
+}),
+new Rectangle({
+  pos: [500,600],
+  size: [500,10],
+  color: 'green',
+}),];
 
-b.draw();      
 
-b.vel = [0.2, -0.7];
 
 timer.update = (deltaTime) => {
-    clearCanvas();
-    b.update(deltaTime);
-    b.draw();
+  clearCanvas();
+  objects.forEach((obj) => obj.update(deltaTime, objects));
+  objects.forEach((obj) => obj.draw());
+  // p.update(deltaTime);
+  // r.update(deltaTime);
+  // p.draw();
+  // r.draw();
 };
 timer.start();
 // window.addEventListener("keydown", (e) => {
