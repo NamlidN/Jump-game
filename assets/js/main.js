@@ -26,25 +26,36 @@ new Rectangle({
   color: 'blue',
 }),
 new Rectangle({
-  pos: [200,600],
+  pos: [200,850],
   size: [10,100],
   color: 'blue',
 }),
+new Rectangle({
+  pos: [200,550],
+  size: [20,200],
+  color: 'blue',
+}),
 new Box({
-  pos: [400,800],
-  size: [100,100],
+  pos: [400,700],
+  size: [50,110],
   color: 'orange',
 }), 
 new Rectangle({
-  pos: [300,750],
+  pos: [300,650],
   size: [200,10],
   color: 'blue',
 }),
 new Rectangle({
-  pos: [500,600],
+  pos: [500,350],
   size: [500,10],
   color: 'green',
-}),];
+}),
+new Box({
+  pos: [600,200],
+  size: [100,100],
+  color: 'blueviolet',
+}),
+];
 
 
 
