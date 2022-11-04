@@ -1,6 +1,4 @@
 import { Box } from "./Box.js";
-import { camera, levelSize } from "../Level.js";
-import { canvas } from "../canvas.js";
 export class Player extends Box {
     constructor(options, type) {
         super({
@@ -62,17 +60,17 @@ export class Player extends Box {
             }
         });
     }
-    push(box, objects){
+    push(box){
         return{
             toLeft: () =>{
                 if(box.type !== "Box") return false;
                 const distance = box.right - this.left;
-                if(box.canBeMoved([- distance,0],objects)){
+                if(box.canBeMoved([- distance,0])){
                 box.setRight(this.left);
                 return true;
                 }
-                const smallDistance = box.getDistanceToLeftObject(objects);
-                if(box.canBeMoved([-smallDistance,0], objects)){
+                const smallDistance = box.getDistanceToLeftObject();
+                if(box.canBeMoved([-smallDistance,0])){
                     box.setLeft(box.left - smallDistance);
                     this.setLeft(box.right);
                     return true
@@ -82,12 +80,12 @@ export class Player extends Box {
             toRight: () =>{
                 if(box.type !== "Box") return false;
                 const distance =this.right - box.left; 
-                if(box.canBeMoved([+ distance,0],objects)){
+                if(box.canBeMoved([+ distance,0])){
                 box.setLeft(this.right);
                 return true;
                 }
-                const smallDistance = box.getDistanceToRightObject(objects);
-                if(box.canBeMoved([smallDistance,0], objects)){
+                const smallDistance = box.getDistanceToRightObject();
+                if(box.canBeMoved([smallDistance,0])){
                     box.setLeft(box.left + smallDistance);
                     this.setRight(box.left);
                     return true
@@ -96,11 +94,9 @@ export class Player extends Box {
             }, 
         };
     }
-
-    specificUpdate(){
-    camera.pos[0] = Math.max(0,Math.min(levelSize[0] - canvas.width, this.right - canvas.width / 2))
-    camera.pos[1] = Math.max(0,Math.min(levelSize[1] - canvas.height, this.top - canvas.height / 2))
-
+    checkGoal(){
+        this.level.won = this.level.objectsOfType.Goal.some((goal) => this.overlapsWith(goal)
+        );
 
     }
 }

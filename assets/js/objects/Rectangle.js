@@ -1,15 +1,16 @@
 import { ctx } from "../canvas.js";
-import { camera } from "../Level.js";
 
 // const r = new Rectangle({ pos: [10, 10], size: [300, 20], color: "green" });
 //definert objekt mit der klasse??
 
 export class Rectangle {
   constructor(options, type) {
+    this.level = null;
     this.pos = options.pos;
     this.size = options.size;
     this.color = options.color;
     this.type = type || "Rectangle";
+    this.originalPos = [...this.pos];
   }
 
   get left() {
@@ -41,8 +42,11 @@ export class Rectangle {
   }
   draw() {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.pos[0] - camera.pos[0]
-      , this.pos[1] - camera.pos[1], this.size[0], this.size[1]);
+    ctx.fillRect(
+      this.pos[0] - this.level.cameraPos[0],
+      this.pos[1] - this.level.cameraPos[1],
+      this.size[0],
+      this.size[1]);
   }
 
   overlapsWith(obj, offset = [0, 0]) {
@@ -57,5 +61,9 @@ export class Rectangle {
 
   update() {
     //
+  }
+
+  reset(){
+    this.pos = [...this.originalPos];
   }
 }
