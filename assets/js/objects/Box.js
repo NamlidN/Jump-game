@@ -74,7 +74,8 @@ export class Box extends Rectangle {
                 if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
                     if (obj.type === 'Trampoline') {
                         this.setBottom(obj.top);
-                        this.vel[1] *= -0.95;
+                        this.vel[1] *= -0.99;
+                        this.onGround = true;
                         return;
                     }
                     this.setBottom(obj.top);

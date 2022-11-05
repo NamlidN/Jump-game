@@ -23,7 +23,7 @@ export class Game {
         this.currentLevel.drawObjects();
         this.currentLevel.addControls();
         levelCount.innerText = 'Level' + this.currentLevelIndex;
-        writeInfo(''); //!toggle
+       writeInfo('LINKS: A //⟻' + '<br>' +' RECHTS: D //⟼'+'<br>' + 'SPRINGEN: ⇧//Space'+ '<br>' +'R = Reset'+ '<br>'+ 'P = Pause//Start '); //!toggle
     }
     switchToNextLevel() {
         this.currentLevelIndex++;

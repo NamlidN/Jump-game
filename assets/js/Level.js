@@ -14,6 +14,7 @@ export class Level {
         this.originalCameraPos = [...this.cameraPos];
         this.objects = [];
         this.objectsOfType = {
+            Trampoline: [],
             Rectangle: [],
             Player: [],
             Box: [],
@@ -38,8 +39,8 @@ export class Level {
 
     keyFunktion(e) {
         // if (e.key === "s" || e.key === "S" ){
-        //     document.getElementById('info').classList.toggle('info') //!steuerung toggle mal schauen 
-        // } 
+        //     document.getElementById('info').classList.toggle('info') 
+        // } //!steuerung toggle mal schauen     
         if (e.key === "p" || e.key === "P" ) {
             if (this.status === STATUS.READY) {
                 this.start();
@@ -120,7 +121,7 @@ export class Level {
  pause(){
     this.status = STATUS.PAUSED
     this.timer.pause()
-    writeInfo('Pausiert')
+    writeInfo('LINKS: A //⟻' + '<br>' +' RECHTS: D //⟼'+'<br>' + 'SPRINGEN: ⇧//Space'+ '<br>' +'R = Reset'+ '<br>'+ 'P = Pause//Start ');
  }
  resume(){
     this.status = STATUS.STARTED;
