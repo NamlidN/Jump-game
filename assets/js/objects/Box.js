@@ -8,6 +8,7 @@ export class Box extends Rectangle {
         this.grav = grav || 0.005; //Gravitation
         this.friction = friction || 0; //Reibung
         this.vel = vel || [0, 0]; //Geschwindigkeit
+        this.originalVel = [...this.vel];
         this.acc = 0; // Beschleunigung
         this.onGround = false; //checkt ob am boden liegt
         this.ppos = [...this.pos];
@@ -28,6 +29,13 @@ export class Box extends Rectangle {
 
     }
 
+
+    reset() {
+        this.pos = [...this.originalPos];
+        this.vel = [...this.originalVel];
+        this.acc = 0;
+    }
+
     applyPhysics(deltaTime) {
         this.vel[0] += this.acc * deltaTime;
         this.vel[0] *= 1 - this.friction;
@@ -41,7 +49,7 @@ export class Box extends Rectangle {
         this.ppos = [...this.pos];
         this.applyPhysics(deltaTime);
         this.level.objects.forEach((obj) => {
-            if(obj.type === 'Goal')return;
+            if (obj.type === 'Goal') return;
             this.collideWith(obj).fromAbove();
             this.collideWith(obj).fromBelow();
             this.collideWith(obj).fromLeft();
@@ -50,9 +58,9 @@ export class Box extends Rectangle {
         this.boundToLevel();
         this.checkGoal();
     }
-checkGoal(){
-    //
-}
+    checkGoal() {
+        //
+    }
     push() {
         return {
             toLeft: () => false,
@@ -64,19 +72,22 @@ checkGoal(){
         return {
             fromAbove: () => {
                 if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
+                    if (obj.type === 'Trampoline') {
+                        this.setBottom(obj.top);
+                        this.vel[1] *= -0.95;
+                        return;
+                    }
                     this.setBottom(obj.top);
                     this.vel[1] = 0;
                     this.onGround = true;
                 }
             },
-
             fromBelow: () => {
                 if (this.prevTop >= obj.bottom && this.overlapsWith(obj)) {
                     this.setTop(obj.bottom);
                     this.vel[1] = 0;
                 }
             },
-
             fromLeft: () => {
                 if (this.prevRight <= obj.left && this.overlapsWith(obj)) {
                     if (this.push(obj).toRight()) return;
@@ -123,7 +134,7 @@ checkGoal(){
         ) {
             return false;
         }
-        return[
+        return [
             ...this.level.objectsOfType.Rectangle,
             ...this.level.objectsOfType.Box]
             .every((obj) => !this.overlapsWith(obj, offset));
@@ -131,7 +142,7 @@ checkGoal(){
 
     getDistanceToLeftObject() {
         let d = this.left;
-       [...this.level.objectsOfType.Rectangle,...this.level.objectsOfType.Box]
+        [...this.level.objectsOfType.Rectangle, ...this.level.objectsOfType.Box]
             .forEach((obj) => {
                 if (
                     this.left >= obj.right &&
@@ -145,7 +156,7 @@ checkGoal(){
     }
     getDistanceToRightObject() {
         let d = this.level.size[0] - this.right;
-        [...this.level.objectsOfType.Rectangle,...this.level.objectsOfType.Box]
+        [...this.level.objectsOfType.Rectangle, ...this.level.objectsOfType.Box]
 
             .forEach((obj) => {
                 if (

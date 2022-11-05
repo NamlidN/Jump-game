@@ -12,7 +12,42 @@ main{
     display: flex;
     justify-content:center ;
     align-items: center;
+    flex-direction: column;
 }
 #canvas{
     background-color: #eee;
+}
+.info{
+    /* display: none; */
+    text-align: center;
+    position: absolute;
+    font-size: 30px;
+    font-weight: 600;
+    background-color: rgba(0,0,250,0.4);
+    padding: 20px 50px;
+}
+.levelCount{
+    margin-top: 10px;
+    opacity: 0.6;
+    width: 800px;
+    text-align: right;
+    font-size: 18px;
+
+}
+#info{
+    /* display: none; */
+    text-align: center;
+    position: absolute;
+    font-size: 30px;
+    font-weight: 600;
+    background-color: rgba(0,0,250,0.4);
+    padding: 20px 50px;
+}
+#levelCount{
+    margin-top: 10px;
+    opacity: 0.6;
+    width: 800px;
+    text-align: right;
+    font-size: 18px;
+
 }

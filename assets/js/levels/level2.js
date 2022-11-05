@@ -70,8 +70,8 @@ export const Level2 = new Level({
             color: 'lightblue',
         }),
         new Box({
-            pos: [400, 460],
-            size: [100, 110],
+            pos: [400, 360],
+            size: [100, 190],
             color: 'orange',
         }),
         new Rectangle({

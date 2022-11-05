@@ -95,8 +95,7 @@ export class Player extends Box {
         };
     }
     checkGoal(){
-        this.level.won = this.level.objectsOfType.Goal.some((goal) => this.overlapsWith(goal)
-        );
+        this.level.won = this.level.objectsOfType.Goal.some((goal) => this.overlapsWith(goal));
 
     }
 }

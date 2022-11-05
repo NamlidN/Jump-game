@@ -1,13 +1,12 @@
 import { canvas, clearCanvas } from "./canvas.js";
 import { Timer } from "./Timer.js";
+import { hideInfo, writeInfo } from "./info.js";
 
 const STATUS = {
     READY: 0,
     STARTED: 1,
-    PAUSED: 2
+    PAUSED: 2,
 };
-
-
 export class Level {
     constructor(options) {
         this.size = options.size || [canvas.width, canvas.height];
@@ -27,6 +26,7 @@ export class Level {
         this.status = STATUS.READY;
         this.won = false;
         this.keyFuncRef = (e) => this.keyFunktion(e);
+        this.game = null;
     }
     addControls() {
         window.addEventListener('keydown', this.keyFuncRef);
@@ -37,7 +37,10 @@ export class Level {
     }
 
     keyFunktion(e) {
-        if (e.key === "p") {
+        // if (e.key === "s" || e.key === "S" ){
+        //     document.getElementById('info').classList.toggle('info') //!steuerung toggle mal schauen 
+        // } 
+        if (e.key === "p" || e.key === "P" ) {
             if (this.status === STATUS.READY) {
                 this.start();
             }else if (this.status === STATUS.STARTED){
@@ -45,7 +48,7 @@ export class Level {
             }else if(this.status === STATUS.PAUSED){
                 this.resume()
             }
-        }else if (e.key === "r" && this.status === STATUS.STARTED){
+        }else if (e.key === "r" && this.status === STATUS.STARTED ||e.key === "R" && this.status === STATUS.STARTED){
             this.reset()
         }
     }
@@ -64,9 +67,9 @@ export class Level {
         this.objectsOfType[type].push(obj);
         obj.level = this;
     }
-    //!____-----------------------------------------
+    //!____---------------------FIXED
     update(deltaTime) {
-        console.log('object');
+      //  console.log('object');
         clearCanvas();
         this.updateObjects(deltaTime);
         this.updateCamera();
@@ -89,36 +92,41 @@ export class Level {
 
 
     }
-    //Todo-------------------------------------------------
+    //Todo------------------FIXED
     drawObjects() {
 
         this.objects.forEach((obj) => obj.draw());
 
     }
-    //todo------------___-----___---__---__--__-___-------_--_-___-
+    //todo------------___-----___---__-FIXED
     checkWin() {
         if (!this.won) return; {
-            this.status = STARTED.PAUSED;
+            this.status = STATUS.STARTED;
             this.timer.pause();
             this.removeControls();
+            this.game.switchToNextLevel();
         }
     }
     start() {
         this.player = this.objectsOfType.Player[0];
+        writeInfo(`Level ${this.index}`)
         this.status = STATUS.STARTED;
         this.timer.paused = false;
         this.timer.start();
+        setTimeout(hideInfo, 2000) //!timer bis steuer info usw weg geht
     }
 
-    //!------------------------------------------------
+    //!--------------------FIXED
  pause(){
     this.status = STATUS.PAUSED
     this.timer.pause()
+    writeInfo('Pausiert')
  }
  resume(){
     this.status = STATUS.STARTED;
     this.timer.paused = false;
     this.timer.start();
+    hideInfo();
  }
 
 reset(){

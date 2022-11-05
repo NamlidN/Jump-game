@@ -1,9 +1,17 @@
-import { Level1 } from './levels/level1.js';
+import {game} from './Game.js'
 
-//Level1.start();
+game.start()
 
-//Level1.drawObjects();
-Level1.addControls()
+
+
+
+
+// import { Level1 } from './levels/level1.js';
+
+// //Level1.start();
+
+// //Level1.drawObjects();
+// Level1.addControls()
 
 
 
