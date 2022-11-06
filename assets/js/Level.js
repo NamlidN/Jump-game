@@ -14,6 +14,8 @@ export class Level {
         this.originalCameraPos = [...this.cameraPos];
         this.objects = [];
         this.objectsOfType = {
+            Tele2: [],
+            Tele1: [],
             Trampoline: [],
             Rectangle: [],
             Player: [],

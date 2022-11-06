@@ -1,6 +1,7 @@
 import { Level1 } from './levels/level1.js';
 import { Level2 } from './levels/level2.js';
 import { Level3 } from './levels/level3.js';
+import { Level4 } from './levels/level4.js';
 import { writeInfo } from './info.js';
 
 
@@ -39,4 +40,4 @@ export class Game {
     }
 }
 
-export const game = new Game([Level1, Level2, Level3]);
+export const game = new Game([Level1, Level2, Level3, Level4]);

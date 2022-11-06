@@ -1,4 +1,6 @@
 import { Rectangle } from "./Rectangle.js";
+// import { Tele1 } from "./Tele1.js";
+// import { Tele2 } from "./Tele2.js";
 
 
 export class Box extends Rectangle {
@@ -31,6 +33,7 @@ export class Box extends Rectangle {
 
 
     reset() {
+        //     this.size = [...this.originalSize] //!mit schrumpfren gespielt recetet natürlich nur die gröse
         this.pos = [...this.originalPos];
         this.vel = [...this.originalVel];
         this.acc = 0;
@@ -72,9 +75,23 @@ export class Box extends Rectangle {
         return {
             fromAbove: () => {
                 if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
+                    if (obj.type === 'Tele1') {
+                        this.setBottom(obj.top);
+                        this.pos = [1100, 0];
+                        return;
+                    }
+                }
+                if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
+                    if (obj.type === 'Tele2') {
+                        this.setBottom(obj.top);
+                        this.pos = [1100, 1400];
+                        return;
+                    }
+                }
+                if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
                     if (obj.type === 'Trampoline') {
                         this.setBottom(obj.top);
-                        this.vel[1] *= -0.99;
+                        this.vel[1] = -2;
                         this.onGround = true;
                         return;
                     }
@@ -84,12 +101,26 @@ export class Box extends Rectangle {
                 }
             },
             fromBelow: () => {
+                if (this.prevBottom <= obj.top && this.overlapsWith(obj)) {
+                    if (obj.type === 'Tele2') {
+                        this.setTop(obj.bottom);
+                        this.pos = [1100, 1400];
+                        return;
+                    }
+                }
                 if (this.prevTop >= obj.bottom && this.overlapsWith(obj)) {
                     this.setTop(obj.bottom);
                     this.vel[1] = 0;
                 }
             },
             fromLeft: () => {
+                if (this.prevRight <= obj.left && this.overlapsWith(obj)) {
+                    if (obj.type === 'Tele2') {
+                        this.setRight(obj.left);
+                        this.pos = [1100, 1400];
+                        return;
+                    }
+                }
                 if (this.prevRight <= obj.left && this.overlapsWith(obj)) {
                     if (this.push(obj).toRight()) return;
                     this.setRight(obj.left);
@@ -98,6 +129,13 @@ export class Box extends Rectangle {
             },
 
             fromRight: () => {
+                if (this.prevLeft >= obj.right && this.overlapsWith(obj)) {
+                    if (obj.type === 'Tele2') {
+                        this.setLeft(obj.right);
+                        this.pos = [1100, 1400];
+                        return;
+                    }
+                }
                 if (this.prevLeft >= obj.right && this.overlapsWith(obj)) {
                     if (this.push(obj).toLeft()) return;
                     this.setLeft(obj.right);

@@ -41,7 +41,7 @@ export const Level3 = new Level({
         new Rectangle({
             pos: [500, 350],
             size: [500, 10],
-            color: 'green',
+            color: 'blue',
         }),
         new Box({
             pos: [600, 150],
@@ -51,7 +51,7 @@ export const Level3 = new Level({
         new Rectangle({
             pos: [500, 350],
             size: [500, 10],
-            color: 'green',
+            color: 'blue',
         }),
         new Rectangle({
             pos: [1180, 0],
