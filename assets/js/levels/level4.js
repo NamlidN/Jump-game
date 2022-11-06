@@ -12,7 +12,7 @@ export const Level4 = new Level({
     size: [1200, 1500],
     objects: [
         new Player({
-            pos: [500, 100],
+            pos: [60, 1400],
             size: [50, 50],
             color: "red",
         }),
